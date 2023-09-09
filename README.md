@@ -12,8 +12,12 @@ On MacOS the path could be:
 ```
 
 # Getting Started 
+Include the namespace: 
+```cs
+using MiJenner.ConfigUtils;
+```
 
-First, use the configuration builder to build a configuration object: 
+Next, use the configuration builder to build a configuration object: 
 ```cs
 var config = new DesktopFolderManagerConfigBuilder()
     .WithUserDataPolicy(UserDataPolicy.PolicyFileAppDataRoaming)
