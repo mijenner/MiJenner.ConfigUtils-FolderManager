@@ -1,11 +1,13 @@
 # MiJenner.ConfigUtils-FolderManager
 
 Desktop Folder Manager in cross platform C# for handling applications storage of user data and user configuration data. 
-The system enables creation of a subfolder structure with .../YourCompany/YourApp/ ... where you can store data and or configuration files. 
+The system enables creation of a subfolder structure with ```.../YourCompany/YourApp/ ...``` where you can store data and or configuration files. 
 On Windows the path could be: 
+```
 C:\Users\john\AppData\Roaming\YourCompany\YourApp 
 On MacOS the path could be: 
 /Users/john/.config/YourCompany/YourApp 
+```
 
 # Getting Started 
 
