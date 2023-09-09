@@ -7,9 +7,9 @@ namespace UsageExamples
         static void Main(string[] args)
         {
             var config = new DesktopFolderManagerConfigBuilder()
-                // .WithUserDataPolicy(UserDataPolicy.PolicyFileDocument)
+                .WithUserDataPolicy(UserDataPolicy.PolicyFileAppDataRoaming)
                 .WithUserDataMagic("")
-                // .WithUserConfigPolicy(UserConfigPolicy.PolicyFileDocument)
+                .WithUserConfigPolicy(UserConfigPolicy.PolicyFileAppDataRoaming)
                 .WithUserConfigMagic("")
                 .WithCompanyAndAppName("YourCompany", "YourApp")
                 .Build();
@@ -25,8 +25,13 @@ namespace UsageExamples
             Console.WriteLine(configFolder);
             Console.WriteLine(dataFolder);
 
-            
+            folderManager.TryCreateUserConfigFolder();
+            folderManager.TryCreateUserDataFolder(); 
 
+            Console.WriteLine(Directory.Exists(configFolder));
+            Console.WriteLine(Directory.Exists(dataFolder));
+
+           
 
         }
     }
