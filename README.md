@@ -5,7 +5,9 @@ The system enables creation of a subfolder structure with ```.../YourCompany/You
 On Windows the path could be: 
 ```
 C:\Users\john\AppData\Roaming\YourCompany\YourApp 
+```
 On MacOS the path could be: 
+```
 /Users/john/.config/YourCompany/YourApp 
 ```
 
@@ -24,10 +26,10 @@ var config = new DesktopFolderManagerConfigBuilder()
 
 ## Policies 
 UserDataPolicy and UserConfigPolicy choose from the same list of the following four enums / locations (if username is john): 
-* PolicyFileAppDataLocal: Windows C:\Users\john\AppData\Local, MacOS: /Users/john/.local/share, Linux: todo 
-* PolicyFileAppDataRoaming: Windows C:\Users\john\AppData\Roaming, MacOS: /Users/john/.config, Linux: todo  
-* PolicyFileDesktop: Windows C:\Users\john\Desktop, MacOS: /Users/john/Desktop, Linux: todo  
-* PolicyFileDocument: Windows C:\Users\john\Documents, MacOS: /Users/john/, Linux: todo 
+* ```PolicyFileAppDataLocal```: Windows C:\Users\john\AppData\Local, MacOS: /Users/john/.local/share, Linux: todo 
+* ```PolicyFileAppDataRoaming```: Windows C:\Users\john\AppData\Roaming, MacOS: /Users/john/.config, Linux: todo  
+* ```PolicyFileDesktop```: Windows C:\Users\john\Desktop, MacOS: /Users/john/Desktop, Linux: todo  
+* ```PolicyFileDocument```: Windows C:\Users\john\Documents, MacOS: /Users/john/, Linux: todo 
 
 Note: the latter may not be possible due to security settings on Windows. 
 
@@ -75,5 +77,5 @@ else
 }
 ```
 
-Now your strings dataFolder and configFolder are (hopefully) proper paths to where you want to store user data, sqlite file, json files etc and so on. 
+Now your strings ```cs dataFolder``` and ```cs configFolder``` are (hopefully) proper paths to where you want to store user data, sqlite file, json files etc and so on. 
 
