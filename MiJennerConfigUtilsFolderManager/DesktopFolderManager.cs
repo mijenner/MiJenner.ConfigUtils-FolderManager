@@ -64,6 +64,9 @@
                 case UserDataPolicy.PolicyFileAppDataRoaming:
                     userDataFolder = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
                     break;
+                case UserDataPolicy.PolicyFileDesktop:
+                    userDataFolder = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
+                    break;
                 default:
                     break;
             }
@@ -103,6 +106,9 @@
                     break;
                 case UserConfigPolicy.PolicyFileAppDataRoaming:
                     userConfigFolder = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
+                    break;
+                case UserConfigPolicy.PolicyFileDesktop:
+                    userConfigFolder = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
                     break;
                 default:
                     break;

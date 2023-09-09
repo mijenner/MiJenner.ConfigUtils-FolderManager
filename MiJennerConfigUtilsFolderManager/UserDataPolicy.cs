@@ -6,5 +6,6 @@
         PolicyFileDocument,
         PolicyFileAppDataLocal,
         PolicyFileAppDataRoaming,
+        PolicyFileDesktop,
     }
 }
