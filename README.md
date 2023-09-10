@@ -29,11 +29,12 @@ var config = new DesktopFolderManagerConfigBuilder()
 ```
 
 ## Policies 
-UserDataPolicy and UserConfigPolicy choose from the same list of the following four enums / locations (if username is john): 
+UserDataPolicy and UserConfigPolicy choose from the same list of the following enums / locations (if username is john): 
 * ```PolicyFileAppDataLocal```: Windows C:\Users\john\AppData\Local, MacOS: /Users/john/.local/share, Linux: todo 
 * ```PolicyFileAppDataRoaming```: Windows C:\Users\john\AppData\Roaming, MacOS: /Users/john/.config, Linux: todo  
 * ```PolicyFileDesktop```: Windows C:\Users\john\Desktop, MacOS: /Users/john/Desktop, Linux: todo  
 * ```PolicyFileDocument```: Windows C:\Users\john\Documents, MacOS: /Users/john/, Linux: todo 
+* ```PolicyFileDontUse```: Do not use storage in this location.  
 
 Note: the latter may not be possible due to security settings on Windows. 
 
