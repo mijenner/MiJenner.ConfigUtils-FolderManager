@@ -86,7 +86,7 @@ else
 }
 ```
 
-Now your strings ```cs dataFolder``` and ```cs configFolder``` are (hopefully) proper paths to where you want to store user data, sqlite file, json files etc and so on. 
+Now your strings `dataFolder` and `configFolder` are (hopefully) proper paths to where you want to store user data, sqlite file, json files etc and so on. 
 
 # NuGet package 
 There is a NuGet package available for easy usage.
