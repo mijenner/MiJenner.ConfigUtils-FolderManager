@@ -38,7 +38,7 @@ UserDataPolicy and UserConfigPolicy choose from the same list of the following e
 * ```PolicyFileDocument```: Windows C:\Users\john\Documents, MacOS: /Users/john/, Linux: todo 
 * ```PolicyFileDontUse```: Do not use storage in this location.  
 
-Note: the latter may not be possible due to security settings on Windows. 
+Note: PolicyFileDocument may not be possible due to security settings on Windows, I've run into this one in a development environment.  
 
 # Create FolderManager instance 
 Next, you will typically create a FolderManager instance, based on the just created configuration: 
