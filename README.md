@@ -12,13 +12,13 @@ On MacOS the path could be:
 `
 
 # Getting Started 
-## Add using 
+# Add using 
 Include the namespace: 
 ```cs
 using MiJenner.ConfigUtils;
 ```
 
-## Create configuration object 
+# Create configuration object 
 Next, use the configuration builder to build a configuration object: 
 ```cs
 var config = new DesktopFolderManagerConfigBuilder()
@@ -30,7 +30,7 @@ var config = new DesktopFolderManagerConfigBuilder()
     .Build();
 ```
 
-### Policies 
+## Policies 
 UserDataPolicy and UserConfigPolicy choose from the same list of the following enums / locations (if username is john): 
 * ```PolicyFileAppDataLocal```: Windows C:\Users\john\AppData\Local, MacOS: /Users/john/.local/share, Linux: todo 
 * ```PolicyFileAppDataRoaming```: Windows C:\Users\john\AppData\Roaming, MacOS: /Users/john/.config, Linux: todo  
@@ -40,14 +40,14 @@ UserDataPolicy and UserConfigPolicy choose from the same list of the following e
 
 Note: the latter may not be possible due to security settings on Windows. 
 
-## Create FolderManager instance 
+# Create FolderManager instance 
 Next, you will typically create a FolderManager instance, based on the just created configuration: 
 
 ```cs
 var folderManager = new DesktopFolderManager(config);
 ```
 
-## Try to create folders 
+# Try to create folders 
 And you would use some logic to determine proper folders for users data and for users configuration, which may be the same. And once found, you want to create them (if already existing this will not harm content). For user data this could be something like: 
 ```cs
 string dataFolder;
