@@ -14,6 +14,8 @@
     <Title>Configuration Utils - Folder Manager</Title>
     <PackageProjectUrl>https://github.com/mijenner/MiJenner.ConfigUtils-FolderManager</PackageProjectUrl>
     <RepositoryUrl>https://github.com/mijenner/MiJenner.ConfigUtils-FolderManager</RepositoryUrl>
+    <PackageId>MiJenner.ConfigUtils-FolderManager</PackageId>
+    <Authors>Jenner IT</Authors>
   </PropertyGroup>
   
   <ItemGroup>
