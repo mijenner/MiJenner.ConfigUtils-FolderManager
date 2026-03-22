@@ -1,14 +1,28 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>net7.0</TargetFramework>
+    <TargetFramework>net8.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
     <RootNamespace>MiJenner.ConfigUtils</RootNamespace>
+    <PackageLicenseFile>LICENSE.txt</PackageLicenseFile>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
   </PropertyGroup>
 
+  <PropertyGroup>
+    <Version>1.1.0</Version>
+    <Title>Configuration Utils - Folder Manager</Title>
+    <PackageProjectUrl>https://github.com/mijenner/MiJenner.ConfigUtils-FolderManager</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/mijenner/MiJenner.ConfigUtils-FolderManager</RepositoryUrl>
+  </PropertyGroup>
+  
   <ItemGroup>
-    <ProjectReference Include="..\..\..\FileUtils\MiJennerFileUtils\MiJennerFileUtils\MiJennerFileUtils.csproj" />
+    <PackageReference Include="MiJennerFileUtils" Version="0.9.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="..\LICENSE.txt" Pack="true" PackagePath="" />
+    <None Include="..\README.md" Pack="true" PackagePath="" />
   </ItemGroup>
 
 </Project>

@@ -2,6 +2,7 @@
 
 namespace MiJenner.ConfigUtils
 {
+
     public static class DetectPlatform
     {
         public static Platform TryDetect()

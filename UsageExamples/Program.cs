@@ -7,32 +7,46 @@ namespace UsageExamples
         static void Main(string[] args)
         {
             var config = new DesktopFolderManagerConfigBuilder()
-                .WithUserDataPolicy(UserDataPolicy.PolicyFileAppDataRoaming)
+                .WithUserDataPolicy(UserDataPolicy.PolicyFileDocument)
                 .WithUserDataMagic("")
-                .WithUserConfigPolicy(UserConfigPolicy.PolicyFileAppDataRoaming)
+                .WithUserConfigPolicy(UserConfigPolicy.PolicyFileDocument)
                 .WithUserConfigMagic("")
-                .WithCompanyAndAppName("YourCompany", "YourApp")
+                .WithCompanyAndAppName("MiJenner", "LearningApp")
                 .Build();
 
             var folderManager = new DesktopFolderManager(config);
 
-            string configFolder;
-            string dataFolder; 
-
-            folderManager.TryGetConfigFolderPath(out configFolder);
-            folderManager.TryGetDataFolderPath(out dataFolder);
-
-            Console.WriteLine(configFolder);
-            Console.WriteLine(dataFolder);
+            folderManager.TryGetConfigFolderPath(out string configFolder);
+            folderManager.TryGetDataFolderPath(out string dataFolder);
+            Console.WriteLine($"Config folder : {configFolder}");
+            Console.WriteLine($"Data folder   : {dataFolder}");
 
             folderManager.TryCreateUserConfigFolder();
-            folderManager.TryCreateUserDataFolder(); 
+            folderManager.TryCreateUserDataFolder();
+            Console.WriteLine($"Config exists : {Directory.Exists(configFolder)}");
+            Console.WriteLine($"Data exists   : {Directory.Exists(dataFolder)}");
 
-            Console.WriteLine(Directory.Exists(configFolder));
-            Console.WriteLine(Directory.Exists(dataFolder));
+            // Test skrivning til config-mappe
+            Console.WriteLine($"Config write  : {TryWriteTestFile(configFolder)}");
 
-           
+            // Test skrivning til data-mappe
+            Console.WriteLine($"Data write    : {TryWriteTestFile(dataFolder)}");
+        }
 
+        private static bool TryWriteTestFile(string folder)
+        {
+            if (string.IsNullOrWhiteSpace(folder)) return false;
+            string testFile = Path.Combine(folder, "_writetest.tmp");
+            try
+            {
+                File.WriteAllText(testFile, "write test");
+                // File.Delete(testFile);
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
         }
     }
 }

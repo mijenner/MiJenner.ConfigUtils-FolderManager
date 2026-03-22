@@ -31,14 +31,15 @@ var config = new DesktopFolderManagerConfigBuilder()
 ```
 
 ## Policies 
-UserDataPolicy and UserConfigPolicy choose from the same list of the following enums / locations (if username is john): 
-* ```PolicyFileAppDataLocal```: Windows C:\Users\john\AppData\Local, MacOS: /Users/john/.local/share, Linux: todo 
-* ```PolicyFileAppDataRoaming```: Windows C:\Users\john\AppData\Roaming, MacOS: /Users/john/.config, Linux: todo  
-* ```PolicyFileDesktop```: Windows C:\Users\john\Desktop, MacOS: /Users/john/Desktop, Linux: todo  
-* ```PolicyFileDocument```: Windows C:\Users\john\Documents, MacOS: /Users/john/, Linux: todo 
-* ```PolicyFileDontUse```: Do not use storage in this location.  
+`UserDataPolicy` and `UserConfigPolicy` choose from the same list of the following enums / locations (if username is john): 
+* `PolicyFileAppDataLocal`: Windows: `C:\Users\john\AppData\Local`, MacOS: `/Users/john/.local/share`, Linux: todo 
+* `PolicyFileAppDataRoaming`: Windows: `C:\Users\john\AppData\Roaming`, MacOS: `/Users/john/.config`, Linux: todo  
+* `PolicyFileDesktop`: Windows: `C:\Users\john\Desktop`, MacOS: `/Users/john/Desktop`, Linux: todo  
+* `PolicyFileDocument`: Windows: `C:\Users\john\Documents`, MacOS: `/Users/john/Documents`, Linux: todo 
+* `PolicyFileUserProfile`: Windows: `C:\Users\john`, MacOS: `/Users/john`, Linux: todo
+* `PolicyFileTempPath`: Windows: `C:\Users\john\AppData\Local\Temp`, MacOS: `/var/folders/...`, Linux: `/tmp`
 
-Note: PolicyFileDocument may not be possible due to security settings on Windows, I've run into this one in a development environment.  
+> **Note:** `PolicyFileDocument` and `PolicyFileAppDataRoaming` may not be accessible due to IT security restrictions, for example in school or corporate environments. In those cases, try `PolicyFileUserProfile` as a fallback, or `PolicyFileTempPath` as a last resort. Be aware that the temp folder may be cleared on logoff.
 
 # Create FolderManager instance 
 Next, you will typically create a FolderManager instance, based on the just created configuration: 
@@ -46,6 +47,8 @@ Next, you will typically create a FolderManager instance, based on the just crea
 ```cs
 var folderManager = new DesktopFolderManager(config);
 ```
+
+> **Note:** The constructor will throw `ArgumentException` if `CompanyName` or `AppName` is null or whitespace, and `ArgumentNullException` if `config` is null.
 
 # Try to create folders 
 And you would use some logic to determine proper folders for users data and for users configuration, which may be the same. And once found, you want to create them (if already existing this will not harm content). For user data this could be something like: 
@@ -61,7 +64,7 @@ else
     // try to create user data folder: 
     if (!folderManager.TryCreateUserDataFolder())
     {
-        // user configuration folder could not be created. 
+        // user data folder could not be created. 
         // logic to get out of that situation. 
     }
 }
@@ -70,7 +73,7 @@ else
 And if it differs for user configuration data you could use: 
 ```cs
 string configFolder;
-if (!folderManager.TryGetConfigFolderPath(outconfigFolder)) 
+if (!folderManager.TryGetConfigFolderPath(out configFolder)) 
 {
     // configuration folder path could not be determined. 
     // logic to get out of that situation.
@@ -85,6 +88,8 @@ else
     }
 }
 ```
+
+> **Note:** `TryCreateUserDataFolder()` and `TryCreateUserConfigFolder()` may throw `InvalidOperationException` if magic file validation is enabled and the expected magic file is not found. This indicates a serious configuration problem that should be handled at application level.
 
 Now your strings `dataFolder` and `configFolder` are (hopefully) proper paths to where you want to store user data, sqlite file, json files etc and so on. 
 

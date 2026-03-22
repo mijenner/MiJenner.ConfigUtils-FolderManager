@@ -1,4 +1,4 @@
-﻿namespace MiJenner.ConfigUtils
+namespace MiJenner.ConfigUtils
 {
     public class DesktopFolderManager : IDesktopFolderManager
     {
@@ -22,8 +22,16 @@
             get => userConfigFolder;
         }
 
+        /// <summary>
+        /// Creates a new DesktopFolderManager with the given configuration.
+        /// </summary>
+        /// <param name="config">Configuration for the folder manager.</param>
+        /// <exception cref="ArgumentNullException">Thrown if config is null.</exception>
+        /// <exception cref="ArgumentException">Thrown if CompanyName or AppName is null or whitespace.</exception>
         public DesktopFolderManager(DesktopFolderManagerConfig config)
         {
+            ValidateConfig(config);
+
             // store config locally, 
             this.config = config;
             // try to determine paths: 
@@ -34,8 +42,16 @@
             platform = DetectPlatform.TryDetect();
         }
 
+        /// <summary>
+        /// Updates the configuration of the folder manager.
+        /// </summary>
+        /// <param name="config">New configuration to apply.</param>
+        /// <exception cref="ArgumentNullException">Thrown if config is null.</exception>
+        /// <exception cref="ArgumentException">Thrown if CompanyName or AppName is null or whitespace.</exception>
         public void UpdateConfiguration(DesktopFolderManagerConfig config)
         {
+            ValidateConfig(config);
+
             this.config = config;
 
             // try to determine paths: 
@@ -44,6 +60,22 @@
 
             // determine platform, 
             platform = DetectPlatform.TryDetect();
+        }
+
+        /// <summary>
+        /// Validates that the configuration is not null and that CompanyName and AppName are set.
+        /// </summary>
+        /// <param name="config">Configuration to validate.</param>
+        /// <exception cref="ArgumentNullException">Thrown if config is null.</exception>
+        /// <exception cref="ArgumentException">Thrown if CompanyName or AppName is null or whitespace.</exception>
+        private static void ValidateConfig(DesktopFolderManagerConfig config)
+        {
+            if (config == null)
+                throw new ArgumentNullException(nameof(config), "Configuration must not be null.");
+            if (string.IsNullOrWhiteSpace(config.CompanyName))
+                throw new ArgumentException("CompanyName must not be null or whitespace.", nameof(config));
+            if (string.IsNullOrWhiteSpace(config.AppName))
+                throw new ArgumentException("AppName must not be null or whitespace.", nameof(config));
         }
 
 
@@ -66,6 +98,12 @@
                     break;
                 case UserDataPolicy.PolicyFileDesktop:
                     userDataFolder = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
+                    break;
+                case UserDataPolicy.PolicyFileUserProfile:
+                    userDataFolder = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile);
+                    break;
+                case UserDataPolicy.PolicyFileTempPath:
+                    userDataFolder = Path.GetTempPath();
                     break;
                 default:
                     break;
@@ -109,6 +147,12 @@
                     break;
                 case UserConfigPolicy.PolicyFileDesktop:
                     userConfigFolder = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
+                    break;
+                case UserConfigPolicy.PolicyFileUserProfile:
+                    userConfigFolder = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile);
+                    break;
+                case UserConfigPolicy.PolicyFileTempPath:
+                    userConfigFolder = Path.GetTempPath();
                     break;
                 default:
                     break;
@@ -242,6 +286,10 @@
         /// <returns>
         /// True if success. False if not. 
         /// </returns>
+        /// <exception cref="InvalidOperationException">
+        /// Thrown if magic file validation is enabled and the expected magic file 
+        /// is not found in the config folder.
+        /// </exception>
         public bool TryCreateUserConfigFolder()
         {
             if (TryHandleFolder(UserConfigFolder, !string.IsNullOrWhiteSpace(config.UserConfigMagic)))
@@ -265,7 +313,10 @@
         /// <returns>
         /// True if success. False if not. 
         /// </returns>
-
+        /// <exception cref="InvalidOperationException">
+        /// Thrown if magic file validation is enabled and the expected magic file 
+        /// is not found in the data folder.
+        /// </exception>
         public bool TryCreateUserDataFolder()
         {
             if (TryHandleFolder(UserDataFolder, !string.IsNullOrWhiteSpace(config.UserDataMagic)))
@@ -376,7 +427,7 @@
                 {
                     return false;
                 }
-                if (FileUtils.FileUtils.TryCreateFile(magicConfigFilePath))
+                if (FileUtils.FileUtils.TryCreateFileForce(magicConfigFilePath))
                 {
                     return true;
                 }
