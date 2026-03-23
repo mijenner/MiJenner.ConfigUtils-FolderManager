@@ -11,8 +11,7 @@ On MacOS the path could be:
 /Users/john/.config/YourCompany/YourApp 
 `
 
-# Getting Started 
-# Add using 
+# Getting Started  
 Include the namespace: 
 ```cs
 using MiJenner.ConfigUtils;
